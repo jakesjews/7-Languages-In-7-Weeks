@@ -1,0 +1,18 @@
+Object clone do(
+	get := method(x, y, return(self lists at(y) at(x)))
+
+	lists := list(list(nil, nil, nil, nil, nil);, list(nil, nil, nil, nil, nil);, list(nil, nil, "hello", nil, nil, nil);, list(nil, nil, nil, nil, nil);, list(nil, nil, nil, nil, nil););
+	dim := method(x, y, self setSlot("lists", list) ;
+for(i, 1, y, setSlot("lst", list) ;
+lst setSize(x) ;
+self lists append(lst)))
+
+	loadFile := method(self doRelativeFile("matrix"))
+
+	set := method(x, y, value, self lists at(y) insertAt(x, value))
+
+	saveFile := method(setSlot("matrixFile", File open("matrix")) ;
+matrixFile write(self serialized) ;
+matrixFile close)
+
+)
