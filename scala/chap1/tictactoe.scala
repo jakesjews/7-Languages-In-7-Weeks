@@ -18,7 +18,7 @@ class TicTacToe(val Board: List [List[Char]]) {
 
 	def checkHorizontal(char: Char) : Boolean = {
 		Board.foreach { row => 
-			if(row.distinct == List(char)) {
+			if(all(row, char)) {
 				return true
 			}
 		}
@@ -30,9 +30,9 @@ class TicTacToe(val Board: List [List[Char]]) {
 		for(i <- 0 until Board.length - 1) {
 			var columnList = List.empty [Char]	
 			Board.foreach { row => 
-				columnList ::= row.apply(i)	
+				columnList ::= row(i)	
 			}
-			if(columnList.distinct == List(char)) {
+			if(all(columnList, char)) {
 				return true
 			}			
 		}
@@ -43,21 +43,21 @@ class TicTacToe(val Board: List [List[Char]]) {
 
 		var diagList = List.empty [Char]
 		for(i <- 0 until Board.length - 1) {
-			diagList ::= Board.apply(i).apply(i)
+			diagList ::= Board(i)(i)
 		}			
 
-		if(diagList.distinct == List(char)) {
+		if(all(diagList, char)) {
 			return true
 		}
 
 		diagList = List.empty [Char]
 		var counter = 0
 		for(i <- Board.length - 1 until 0 by -1) {
-			diagList ::= Board.apply(i).apply(counter)
+			diagList ::= Board(i)(counter)
 			counter = counter + 1
 		}			
 
-		if(diagList.distinct == List(char)) {
+		if(all(diagList, char)) {
 			return true
 		}
 
