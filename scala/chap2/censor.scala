@@ -1,6 +1,6 @@
 import collection.mutable.HashMap
 
-trait Censor {
+class ListCensor {
 
 	val censoredWords = new HashMap[String, String] 
 	loadFile	
@@ -25,9 +25,6 @@ trait Censor {
 
 }
 
-class CensoredList(val words:List[String]) extends Censor {
-	def censor() : List[String] = { censor(words) }
-}
-
-val derps = new CensoredList(List("hello", "shoot", "darn")) 
-println(derps.censor)
+val words = List("Hello", "shoot", "darn")
+val listCensor = new ListCensor
+println(listCensor.censor(words))
