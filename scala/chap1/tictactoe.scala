@@ -18,7 +18,7 @@ class TicTacToe(val Board: List [List[Char]]) {
 
 	def checkHorizontal(char: Char) : Boolean = {
 		Board.foreach { row => 
-			if(all(row, char)) {
+			if(row.forall(r => r == char)) {
 				return true
 			}
 		}
@@ -32,7 +32,7 @@ class TicTacToe(val Board: List [List[Char]]) {
 			Board.foreach { row => 
 				columnList ::= row(i)	
 			}
-			if(all(columnList, char)) {
+			if(columnList.forall(col => col == char)) {
 				return true
 			}			
 		}
@@ -46,7 +46,7 @@ class TicTacToe(val Board: List [List[Char]]) {
 			diagList ::= Board(i)(i)
 		}			
 
-		if(all(diagList, char)) {
+		if(diagList.forall(d => d == char)) {
 			return true
 		}
 
@@ -57,15 +57,11 @@ class TicTacToe(val Board: List [List[Char]]) {
 			counter = counter + 1
 		}			
 
-		if(all(diagList, char)) {
+		if(diagList.forall(d => d == char)) {
 			return true
 		}
 
 		return false
-	}
-
-	def all(list: List[Char], char: Char) : Boolean = {
-		return (list.distinct == List(char))
 	}
 }
 
@@ -90,10 +86,19 @@ List(
 	List('x', 'x', 'o')
 )
 
+val boardNobody = 
+List(
+	List('o', 'o', 'x'),
+	List('x', 'x', 'o'),
+	List('o', 'x', 'o')
+)
+
 val tickHorizontal = new TicTacToe(boardHorizontal)
 val tickVertical = new TicTacToe(boardVertical)
 val tickDiagonal = new TicTacToe(boardDiagonal)
+val tickNobody = new TicTacToe(boardNobody)
 
 println(tickHorizontal.getWinner())
 println(tickVertical.getWinner())
 println(tickDiagonal.getWinner())
+println(tickNobody.getWinner())
